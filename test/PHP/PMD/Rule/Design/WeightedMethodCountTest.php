@@ -38,7 +38,7 @@
  *
  * @category   PHP
  * @package    PHP_PMD
- * @subpackage Rule
+ * @subpackage Rule_Design
  * @author     Manuel Pichler <mapi@phpmd.org>
  * @copyright  2009-2010 Manuel Pichler. All rights reserved.
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -47,16 +47,16 @@
  * @since      0.2.5
  */
 
-require_once dirname(__FILE__) . '/../AbstractTest.php';
+require_once dirname(__FILE__) . '/../../AbstractTest.php';
 
-require_once 'PHP/PMD/Rule/WeightedMethodCount.php';
+require_once 'PHP/PMD/Rule/Design/WeightedMethodCount.php';
 
 /**
  * Test case for the weighted method count rule.
  *
  * @category   PHP
  * @package    PHP_PMD
- * @subpackage Rule
+ * @subpackage Rule_Design
  * @author     Manuel Pichler <mapi@phpmd.org>
  * @copyright  2009-2010 Manuel Pichler. All rights reserved.
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -64,7 +64,7 @@ require_once 'PHP/PMD/Rule/WeightedMethodCount.php';
  * @link       http://phpmd.org
  * @since      0.2.5
  */
-class PHP_PMD_Rule_WeightedMethodCountTest extends PHP_PMD_AbstractTest
+class PHP_PMD_Rule_Design_WeightedMethodCountTest extends PHP_PMD_AbstractTest
 {
     /**
      * testRuleAppliesForValueGreaterThanThreshold
@@ -80,7 +80,7 @@ class PHP_PMD_Rule_WeightedMethodCountTest extends PHP_PMD_AbstractTest
         $class  = $this->getClassMock('wmc', 42);
         $report = $this->getReportMock(1);
 
-        $rule = new PHP_PMD_Rule_WeightedMethodCount();
+        $rule = new PHP_PMD_Rule_Design_WeightedMethodCount();
         $rule->setReport($report);
         $rule->addProperty('minimum', '10');
         $rule->apply($class);
@@ -100,7 +100,7 @@ class PHP_PMD_Rule_WeightedMethodCountTest extends PHP_PMD_AbstractTest
         $class  = $this->getClassMock('wmc', 42);
         $report = $this->getReportMock(1);
 
-        $rule = new PHP_PMD_Rule_WeightedMethodCount();
+        $rule = new PHP_PMD_Rule_Design_WeightedMethodCount();
         $rule->setReport($report);
         $rule->addProperty('minimum', '42');
         $rule->apply($class);
@@ -120,7 +120,7 @@ class PHP_PMD_Rule_WeightedMethodCountTest extends PHP_PMD_AbstractTest
         $class  = $this->getClassMock('wmc', 42);
         $report = $this->getReportMock(0);
 
-        $rule = new PHP_PMD_Rule_WeightedMethodCount();
+        $rule = new PHP_PMD_Rule_Design_WeightedMethodCount();
         $rule->setReport($report);
         $rule->addProperty('minimum', '43');
         $rule->apply($class);

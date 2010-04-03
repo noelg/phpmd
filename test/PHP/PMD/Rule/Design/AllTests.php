@@ -54,6 +54,7 @@ require_once dirname(__FILE__) . '/LongParameterListTest.php';
 require_once dirname(__FILE__) . '/NpathComplexityTest.php';
 require_once dirname(__FILE__) . '/TooManyFieldsTest.php';
 require_once dirname(__FILE__) . '/TooManyMethodsTest.php';
+require_once dirname(__FILE__) . '/WeightedMethodCountTest.php';
 
 /**
  * Main test suite for the PHP_PMD_Rule_Design package.
@@ -84,6 +85,7 @@ class PHP_PMD_Rule_Design_AllTests
         $suite->addTestSuite('PHP_PMD_Rule_Design_NpathComplexityTest');
         $suite->addTestSuite('PHP_PMD_Rule_Design_TooManyFieldsTest');
         $suite->addTestSuite('PHP_PMD_Rule_Design_TooManyMethodsTest');
+        $suite->addTestSuite('PHP_PMD_Rule_Design_WeightedMethodCountTest');
 
         return $suite;
     }

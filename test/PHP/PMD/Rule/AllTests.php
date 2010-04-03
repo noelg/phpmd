@@ -54,7 +54,6 @@ require_once dirname(__FILE__) . '/UnusedFormalParameterTest.php';
 require_once dirname(__FILE__) . '/UnusedLocalVariableTest.php';
 require_once dirname(__FILE__) . '/UnusedPrivateFieldTest.php';
 require_once dirname(__FILE__) . '/UnusedPrivateMethodTest.php';
-require_once dirname(__FILE__) . '/WeightedMethodCountTest.php';
 
 require_once dirname(__FILE__) . '/Design/AllTests.php';
 require_once dirname(__FILE__) . '/Naming/AllTests.php';
@@ -88,7 +87,6 @@ class PHP_PMD_Rule_AllTests
         $suite->addTestSuite('PHP_PMD_Rule_UnusedLocalVariableTest');
         $suite->addTestSuite('PHP_PMD_Rule_UnusedPrivateFieldTest');
         $suite->addTestSuite('PHP_PMD_Rule_UnusedPrivateMethodTest');
-        $suite->addTestSuite('PHP_PMD_Rule_WeightedMethodCountTest');
 
         $suite->addTest(PHP_PMD_Rule_Design_AllTests::suite());
         $suite->addTest(PHP_PMD_Rule_Naming_AllTests::suite());

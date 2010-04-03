@@ -38,7 +38,7 @@
  *
  * @category   PHP
  * @package    PHP_PMD
- * @subpackage Rule
+ * @subpackage Rule_Design
  * @author     Manuel Pichler <mapi@phpmd.org>
  * @copyright  2009-2010 Manuel Pichler. All rights reserved.
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -56,7 +56,7 @@ require_once 'PHP/PMD/Rule/IClassAware.php';
  *
  * @category   PHP
  * @package    PHP_PMD
- * @subpackage Rule
+ * @subpackage Rule_Design
  * @author     Manuel Pichler <mapi@phpmd.org>
  * @copyright  2009-2010 Manuel Pichler. All rights reserved.
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -64,7 +64,7 @@ require_once 'PHP/PMD/Rule/IClassAware.php';
  * @link       http://phpmd.org
  * @since      0.2.5
  */
-class PHP_PMD_Rule_WeightedMethodCount
+class PHP_PMD_Rule_Design_WeightedMethodCount
        extends PHP_PMD_AbstractRule
     implements PHP_PMD_Rule_IClassAware
 {
