@@ -82,7 +82,7 @@ class PHP_PMD_Rule_Design_WeightedMethodCountTest extends PHP_PMD_AbstractTest
 
         $rule = new PHP_PMD_Rule_Design_WeightedMethodCount();
         $rule->setReport($report);
-        $rule->addProperty('minimum', '10');
+        $rule->addProperty('maximum', '10');
         $rule->apply($class);
     }
 
@@ -102,7 +102,7 @@ class PHP_PMD_Rule_Design_WeightedMethodCountTest extends PHP_PMD_AbstractTest
 
         $rule = new PHP_PMD_Rule_Design_WeightedMethodCount();
         $rule->setReport($report);
-        $rule->addProperty('minimum', '42');
+        $rule->addProperty('maximum', '42');
         $rule->apply($class);
     }
 
@@ -122,7 +122,7 @@ class PHP_PMD_Rule_Design_WeightedMethodCountTest extends PHP_PMD_AbstractTest
 
         $rule = new PHP_PMD_Rule_Design_WeightedMethodCount();
         $rule->setReport($report);
-        $rule->addProperty('minimum', '43');
+        $rule->addProperty('maximum', '43');
         $rule->apply($class);
     }
 }

@@ -79,7 +79,7 @@ class PHP_PMD_Rule_Design_WeightedMethodCount
     public function apply(PHP_PMD_AbstractNode $node)
     {
         $threshold = $node->getMetric('wmc');
-        if ($threshold >= $this->getIntProperty('minimum')) {
+        if ($threshold >= $this->getIntProperty('maximum')) {
             $this->addViolation($node, array($node->getName(), $threshold));
         }
     }
