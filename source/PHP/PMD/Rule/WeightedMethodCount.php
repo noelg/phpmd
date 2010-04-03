@@ -44,23 +44,15 @@
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version    SVN: $Id$
  * @link       http://phpmd.org
+ * @since      0.2.5
  */
 
-require_once 'PHPUnit/Framework.php';
-
-require_once dirname(__FILE__) . '/CyclomaticComplexityTest.php';
-require_once dirname(__FILE__) . '/ExcessivePublicCountTest.php';
-require_once dirname(__FILE__) . '/UnusedFormalParameterTest.php';
-require_once dirname(__FILE__) . '/UnusedLocalVariableTest.php';
-require_once dirname(__FILE__) . '/UnusedPrivateFieldTest.php';
-require_once dirname(__FILE__) . '/UnusedPrivateMethodTest.php';
-require_once dirname(__FILE__) . '/WeightedMethodCountTest.php';
-
-require_once dirname(__FILE__) . '/Design/AllTests.php';
-require_once dirname(__FILE__) . '/Naming/AllTests.php';
+require_once 'PHP/PMD/AbstractRule.php';
+require_once 'PHP/PMD/Rule/IClassAware.php';
 
 /**
- * Main test suite for the PHP_PMD_Rule package.
+ * This rule checks a given class against a configured weighted method count
+ * threshold.
  *
  * @category   PHP
  * @package    PHP_PMD
@@ -70,29 +62,25 @@ require_once dirname(__FILE__) . '/Naming/AllTests.php';
  * @license    http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version    Release: @package_version@
  * @link       http://phpmd.org
+ * @since      0.2.5
  */
-class PHP_PMD_Rule_AllTests
+class PHP_PMD_Rule_WeightedMethodCount
+       extends PHP_PMD_AbstractRule
+    implements PHP_PMD_Rule_IClassAware
 {
     /**
-     * Creates a phpunit test suite.
+     * This method checks the weighted method count for the given class against
+     * a configured threshold.
      *
-     * @return PHPUnit_Framework_TestSuite
+     * @param PHP_PMD_AbstractNode $node The context class node.
+     *
+     * @return void
      */
-    public static function suite()
+    public function apply(PHP_PMD_AbstractNode $node)
     {
-        $suite = new PHPUnit_Framework_TestSuite('PHP_PMD_Rule - Tests');
-
-        $suite->addTestSuite('PHP_PMD_Rule_CyclomaticComplexityTest');
-        $suite->addTestSuite('PHP_PMD_Rule_ExcessivePublicCountTest');
-        $suite->addTestSuite('PHP_PMD_Rule_UnusedFormalParameterTest');
-        $suite->addTestSuite('PHP_PMD_Rule_UnusedLocalVariableTest');
-        $suite->addTestSuite('PHP_PMD_Rule_UnusedPrivateFieldTest');
-        $suite->addTestSuite('PHP_PMD_Rule_UnusedPrivateMethodTest');
-        $suite->addTestSuite('PHP_PMD_Rule_WeightedMethodCountTest');
-
-        $suite->addTest(PHP_PMD_Rule_Design_AllTests::suite());
-        $suite->addTest(PHP_PMD_Rule_Naming_AllTests::suite());
-
-        return $suite;
+        $threshold = $node->getMetric('wmc');
+        if ($threshold >= $this->getIntProperty('minimum')) {
+            $this->addViolation($node, array($node->getName(), $threshold));
+        }
     }
 }
