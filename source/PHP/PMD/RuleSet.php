@@ -1,4 +1,10 @@
 <?php
+
+/* FIXME: create standalone files */
+
+interface PHP_PMD_Rule_IFileAware {}
+interface PHP_PMD_Rule_IApplicationAware {}
+
 /**
  * This file is part of PHP_PMD.
  *
@@ -92,10 +98,14 @@ class PHP_PMD_RuleSet implements IteratorAggregate
      * @var array(string=>string) $_applyTo
      */
     private $_applyTo = array(
-        'PHP_PMD_Rule_IClassAware'      =>  'PHP_PMD_Node_Class',
-        'PHP_PMD_Rule_IFunctionAware'   =>  'PHP_PMD_Node_Function',
-        'PHP_PMD_Rule_IInterfaceAware'  =>  'PHP_PMD_Node_Interface',
-        'PHP_PMD_Rule_IMethodAware'     =>  'PHP_PMD_Node_Method',
+        'PHP_PMD_Rule_IClassAware'       =>  'PHP_PMD_Node_Class',
+        'PHP_PMD_Rule_IFunctionAware'    =>  'PHP_PMD_Node_Function',
+        'PHP_PMD_Rule_IInterfaceAware'   =>  'PHP_PMD_Node_Interface',
+        'PHP_PMD_Rule_IMethodAware'      =>  'PHP_PMD_Node_Method',
+        
+        /* FIXME: find a way to override the _applyTo map */
+        'PHP_PMD_Rule_IFileAware'        =>  'PHP_PMD_File_Node',
+        'PHP_PMD_Rule_IApplicationAware' =>  'PHP_PMD_Application_Node',
     );
 
     /**

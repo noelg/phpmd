@@ -113,6 +113,11 @@ class PHP_PMD_TextUI_Command
             $phpmd->setIgnorePattern(explode(',', $ignore));
         }
 
+        $parser = $opts->getParser();
+        if ($parser !== null) {
+            $phpmd->setParser($parser);
+        }
+
         $phpmd->processFiles(
             $opts->getInputPath(),
             $opts->getRuleSets(),
