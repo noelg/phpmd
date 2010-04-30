@@ -432,7 +432,7 @@ abstract class PHP_PMD_AbstractRule
      */
     public function isApplicable(PHP_PMD_AbstractNode $node)
     {
-      $applyTo = $this->getAppliesTo();
+      $applyTo = $this->appliesTo();
 
       foreach ($applyTo as $type)
       {
