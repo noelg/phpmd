@@ -116,6 +116,13 @@ class PHP_PMD_TextUI_CommandLineOptions
      * @var string $_ignore
      */
     private $_ignore = null;
+
+    /**
+     * The parser class to use to analyze the code
+     *
+     * @var string $_parser
+     */
+    private $_parser = null;
     
     /**
      * Constructs a new command line options instance.
@@ -152,6 +159,10 @@ class PHP_PMD_TextUI_CommandLineOptions
 
             case '--ignore':
                 $this->_ignore = array_shift($args);
+                break;
+
+            case '--parser':
+                $this->_parser = array_shift($args);
                 break;
             }
         }
@@ -231,6 +242,17 @@ class PHP_PMD_TextUI_CommandLineOptions
     }
 
     /**
+     * Returns the parser class name to use to analyze the code
+     * or <b>null</b> when this argument was not set.
+     *
+     * @return string
+     */
+    public function getParser()
+    {
+        return $this->_parser;
+    }
+
+    /**
      * Creates a report renderer instance based on the user's command line
      * argument.
      *
@@ -304,5 +326,6 @@ class PHP_PMD_TextUI_CommandLineOptions
                'filename extensions' . PHP_EOL .
                '--ignore: comma-separated string of patterns that are used to ' .
                'ignore directories' . PHP_EOL;
+               '--parser: The parser class to use to analyze the code' . PHP_EOL;
     }
 }

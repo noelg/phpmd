@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of PHP_PMD.
  *
@@ -91,6 +92,7 @@ class PHP_PMD_RuleSet implements IteratorAggregate
      *
      * @var array $_rules
      */
+
     private $_rules = array();
 
     /**

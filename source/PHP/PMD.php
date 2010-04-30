@@ -154,6 +154,18 @@ class PHP_PMD
         return $this->_ignorePatterns;
     }
 
+
+    public function getParser()
+    {
+        return $this->_parser;
+    }
+
+    public function setParser($parser)
+    {
+        $this->_parser = $parser;
+    }
+
+
     /**
      * Sets a list of ignore patterns that is used to exclude directories from
      * the source analysis.

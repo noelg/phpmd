@@ -75,8 +75,11 @@ class PHP_PMD_ParserFactory
     {
         $pdepend = $this->_createInstance();
         $pdepend = $this->_init($pdepend, $phpmd);
+        
+        $class = $phpmd->getParser();
+        $parser = new $class($pdepend, $phpmd);
 
-        return new PHP_PMD_Parser($pdepend);
+        return $parser;
     }
 
     /**
