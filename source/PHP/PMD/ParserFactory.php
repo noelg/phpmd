@@ -72,10 +72,7 @@ class PHP_PMD_ParserFactory
      * @return PHP_PMD_Parser
      */
     public function create(PHP_PMD $phpmd)
-    {
-        $pdepend = $this->_createInstance();
-        $pdepend = $this->_init($pdepend, $phpmd);
-        
+    {     
         $class = $phpmd->getParser();
 
         if (!class_exists($class))
@@ -84,104 +81,8 @@ class PHP_PMD_ParserFactory
           include_once($file);
         }
 
-        $parser = new $class($pdepend, $phpmd);
+        $parser = new $class($phpmd);
 
         return $parser;
-    }
-
-    /**
-     * Creates a clean php depend instance with some base settings.
-     *
-     * @return PHP_Depend
-     */
-    private function _createInstance()
-    {
-        $pdepend = new PHP_Depend();
-        $pdepend->setStorage(PHP_Depend::TOKEN_STORAGE, $this->_createEngine());
-        $pdepend->setStorage(PHP_Depend::PARSER_STORAGE, $this->_createEngine());
-
-        return $pdepend;
-    }
-
-    /**
-     * Returns an instance of the used php depend temp data storage.
-     *
-     * @return PHP_Depend_Storage_EngineI
-     */
-    private function _createEngine()
-    {
-        include_once 'PHP/Depend/Storage/FileEngine.php';
-
-        return new PHP_Depend_Storage_FileEngine();
-    }
-
-    /**
-     * Configures the given PHP_Depend instance based on some user settings.
-     *
-     * @param PHP_Depend $pdepend The context php depend instance.
-     * @param PHP_PMD    $phpmd   The calling/parent php mess detector.
-     *
-     * @return PHP_Depend
-     */
-    private function _init(PHP_Depend $pdepend, PHP_PMD $phpmd)
-    {
-        $this->_initInput($pdepend, $phpmd);
-        $this->_initIgnores($pdepend, $phpmd);
-        $this->_initExtensions($pdepend, $phpmd);
-
-        return $pdepend;
-    }
-
-    /**
-     * Configures the input source.
-     *
-     * @param PHP_Depend $pdepend The context php depend instance.
-     * @param PHP_PMD    $phpmd   The calling/parent php mess detector.
-     *
-     * @return void
-     */
-    private function _initInput(PHP_Depend $pdepend, PHP_PMD $phpmd)
-    {
-        foreach (explode(',', $phpmd->getInput()) as $path) {
-            if (is_dir(trim($path))) {
-                $pdepend->addDirectory(trim($path));
-            } else {
-                $pdepend->addFile(trim($path));
-            }
-        }
-    }
-
-    /**
-     * Initializes the ignored files and path's.
-     *
-     * @param PHP_Depend $pdepend The context php depend instance.
-     * @param PHP_PMD    $phpmd   The calling/parent php mess detector.
-     *
-     * @return void
-     */
-    private function _initIgnores(PHP_Depend $pdepend, PHP_PMD $phpmd)
-    {
-        if (count($phpmd->getIgnorePattern()) > 0) {
-            $pdepend->addFileFilter(
-                new PHP_Depend_Input_ExcludePathFilter($phpmd->getIgnorePattern())
-            );
-        }
-    }
-
-    /**
-     * Initializes the accepted php source file extensions.
-     *
-     * @param PHP_Depend $pdepend The context php depend instance.
-     * @param PHP_PMD    $phpmd   The calling/parent php mess detector.
-     *
-     * @return void
-     */
-    private function _initExtensions(PHP_Depend $pdepend, PHP_PMD $phpmd)
-    {
-        if (count($phpmd->getFileExtensions()) > 0) {
-            $pdepend->addFileFilter(
-                new PHP_Depend_Input_ExtensionFilter($phpmd->getFileExtensions())
-            );
-        }
     }
 }

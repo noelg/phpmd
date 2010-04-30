@@ -141,6 +141,7 @@ class PHP_PMD_TextUI_CommandLineOptions
         $this->_inputPath    = array_shift($args);
         $this->_reportFormat = array_shift($args);
         $this->_ruleSets     = array_shift($args);
+        $this->_parser       = 'PHP_PMD_Parser';
 
         while (($arg = array_shift($args)) !== null) {
             switch ($arg) {
