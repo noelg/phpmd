@@ -425,6 +425,27 @@ abstract class PHP_PMD_AbstractRule
     }
 
     /**
+     * Checks if the rule is applicable on the given node
+     * 
+     * @param PHP_PMD_AbstractNode $node
+     * @return boolean
+     */
+    public function isApplicable(PHP_PMD_AbstractNode $node)
+    {
+      $applyTo = $this->getAppliesTo();
+
+      foreach ($applyTo as $type)
+      {
+        if ($node instanceof $type)
+        {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    /**
      * This method should implement the violation analysis algorithm of concrete
      * rule implementations. All extending classes must implement this method.
      *
@@ -433,4 +454,10 @@ abstract class PHP_PMD_AbstractRule
      * @return void
      */
     public abstract function apply(PHP_PMD_AbstractNode $node);
+
+    /**
+     * @return array
+     */
+    public abstract function appliesTo();
+
 }

@@ -87,28 +87,11 @@ class PHP_PMD_RuleSet implements IteratorAggregate
     private $_report = null;
 
     /**
-     * Mapping between marker interfaces and concrete context code node classes.
+     * Collection of rules.
      *
-     * @var array(string=>string) $_applyTo
+     * @var array $_rules
      */
-    private $_applyTo = array(
-        'PHP_PMD_Rule_IClassAware'      =>  'PHP_PMD_Node_Class',
-        'PHP_PMD_Rule_IFunctionAware'   =>  'PHP_PMD_Node_Function',
-        'PHP_PMD_Rule_IInterfaceAware'  =>  'PHP_PMD_Node_Interface',
-        'PHP_PMD_Rule_IMethodAware'     =>  'PHP_PMD_Node_Method',
-    );
-
-    /**
-     * Mapping of rules that apply to a concrete code node type.
-     *
-     * @var array(string=>array) $_rules
-     */
-    private $_rules = array(
-        'PHP_PMD_Node_Class'      =>  array(),
-        'PHP_PMD_Node_Function'   =>  array(),
-        'PHP_PMD_Node_Interface'  =>  array(),
-        'PHP_PMD_Node_Method'     =>  array(),
-    );
+    private $_rules = array();
 
     /**
      * Returns the file name where the definition of this rule-set comes from.
@@ -244,11 +227,7 @@ class PHP_PMD_RuleSet implements IteratorAggregate
      */
     public function addRule(PHP_PMD_AbstractRule $rule)
     {
-        foreach ($this->_applyTo as $applyTo => $type) {
-            if ($rule instanceof $applyTo) {
-                $this->_rules[$type][] = $rule;
-            }
-        }
+      $this->_rules[] = $rule;
     }
 
     /**
@@ -260,17 +239,9 @@ class PHP_PMD_RuleSet implements IteratorAggregate
      */
     public function apply(PHP_PMD_AbstractNode $node)
     {
-        // Current node type
-        $className = get_class($node);
-
-        // Check for valid node type
-        if (!isset($this->_rules[$className])) {
-            return;
-        }
-
         // Apply all rules to this node
-        foreach ($this->_rules[$className] as $rule) {
-            if ($node->hasSuppressWarningsAnnotationFor($rule)) {
+        foreach ($this->_rules as $rule) {
+            if ($node->hasSuppressWarningsAnnotationFor($rule) || !$rule->isApplicable($node)) {
                 continue;
             }
             $rule->setReport($this->_report);
