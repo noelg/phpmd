@@ -47,9 +47,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IClassAware.php';
-require_once 'PHP/PMD/Rule/IMethodAware.php';
-require_once 'PHP/PMD/Rule/IFunctionAware.php';
 
 /**
  * This rule class will detect variables, parameters and properties with really
@@ -64,11 +61,7 @@ require_once 'PHP/PMD/Rule/IFunctionAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_Naming_LongVariable
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IClassAware,
-               PHP_PMD_Rule_IMethodAware,
-               PHP_PMD_Rule_IFunctionAware
+class PHP_PMD_Rule_Naming_LongVariable extends PHP_PMD_AbstractRule
 {
     /**
      * Temporary map holding variables that were already processed in the
@@ -214,5 +207,15 @@ class PHP_PMD_Rule_Naming_LongVariable
     protected function isNotProcessed(PHP_PMD_AbstractNode $node)
     {
         return !isset($this->_processedVariables[$node->getImage()]);
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Method', 'PHP_PMD_Node_Function', 'PHP_PMD_Node_Class');
     }
 }

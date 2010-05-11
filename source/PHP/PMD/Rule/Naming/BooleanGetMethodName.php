@@ -47,7 +47,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IMethodAware.php';
 
 /**
  * This rule tests that a method which returns a boolean value does not start
@@ -62,9 +61,7 @@ require_once 'PHP/PMD/Rule/IMethodAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_Naming_BooleanGetMethodName
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IMethodAware
+class PHP_PMD_Rule_Naming_BooleanGetMethodName extends PHP_PMD_AbstractRule
 {
     /**
      * Extracts all variable and variable declarator nodes from the given node
@@ -136,5 +133,15 @@ class PHP_PMD_Rule_Naming_BooleanGetMethodName
             return $node->getParameterCount() === 0;
         }
         return true;
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Method');
     }
 }

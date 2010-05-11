@@ -47,7 +47,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IClassAware.php';
 
 /**
  * This rule collects all private methods in a class that aren't used in any
@@ -62,9 +61,7 @@ require_once 'PHP/PMD/Rule/IClassAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_UnusedPrivateMethod
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IClassAware
+class PHP_PMD_Rule_UnusedPrivateMethod extends PHP_PMD_AbstractRule
 {
     /**
      * This method checks that all private class methods are at least accessed
@@ -177,5 +174,15 @@ class PHP_PMD_Rule_UnusedPrivateMethod
             strcasecmp($prefix->getImage(), '$this') === 0 ||
             strcasecmp($prefix->getImage(), $class->getImage()) === 0
         );
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Class');
     }
 }

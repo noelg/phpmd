@@ -48,7 +48,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IClassAware.php';
 
 /**
  * This rule checks a given class against a configured weighted method count
@@ -64,9 +63,7 @@ require_once 'PHP/PMD/Rule/IClassAware.php';
  * @link       http://phpmd.org
  * @since      0.2.5
  */
-class PHP_PMD_Rule_Design_WeightedMethodCount
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IClassAware
+class PHP_PMD_Rule_Design_WeightedMethodCount extends PHP_PMD_AbstractRule
 {
     /**
      * This method checks the weighted method count for the given class against
@@ -85,4 +82,15 @@ class PHP_PMD_Rule_Design_WeightedMethodCount
             $this->addViolation($node, array($node->getName(), $actual, $threshold));
         }
     }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Class');
+    }
+
 }

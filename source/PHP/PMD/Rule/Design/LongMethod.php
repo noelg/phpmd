@@ -47,8 +47,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IFunctionAware.php';
-require_once 'PHP/PMD/Rule/IMethodAware.php';
 
 /**
  * This rule will detect to long methods, those methods are unreadable and in
@@ -63,10 +61,7 @@ require_once 'PHP/PMD/Rule/IMethodAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_Design_LongMethod
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IFunctionAware,
-               PHP_PMD_Rule_IMethodAware
+class PHP_PMD_Rule_Design_LongMethod extends PHP_PMD_AbstractRule
 {
     /**
      * This method checks the lines of code length for the given function or
@@ -87,5 +82,15 @@ class PHP_PMD_Rule_Design_LongMethod
         $type = strtolower(array_pop($type));
 
         $this->addViolation($node, array($type, $node->getName(), $loc));
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Method', 'PHP_PMD_Node_Function');
     }
 }

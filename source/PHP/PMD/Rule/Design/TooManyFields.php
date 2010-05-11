@@ -47,7 +47,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IClassAware.php';
 
 /**
  * This rule class will detect all classes with too much fields.
@@ -61,9 +60,7 @@ require_once 'PHP/PMD/Rule/IClassAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_Design_TooManyFields
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IClassAware
+class PHP_PMD_Rule_Design_TooManyFields extends PHP_PMD_AbstractRule
 {
     /**
      * This method checks the number of methods with in a given class and checks
@@ -79,5 +76,15 @@ class PHP_PMD_Rule_Design_TooManyFields
             return;
         }
         $this->addViolation($node);
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Class');
     }
 }

@@ -47,7 +47,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IClassAware.php';
 
 /**
  * This rule class will detect excessive long classes.
@@ -61,9 +60,7 @@ require_once 'PHP/PMD/Rule/IClassAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_Design_LongClass
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IClassAware
+class PHP_PMD_Rule_Design_LongClass extends PHP_PMD_AbstractRule
 {
     /**
      * This method checks the length of the given class node against a configured
@@ -81,5 +78,15 @@ class PHP_PMD_Rule_Design_LongClass
         }
 
         $this->addViolation($node, array($node->getName(), $loc));
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Class');
     }
 }

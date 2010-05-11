@@ -47,7 +47,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IClassAware.php';
 
 /**
  * This rule collects all private fields in a class that aren't used in any
@@ -62,9 +61,7 @@ require_once 'PHP/PMD/Rule/IClassAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_UnusedPrivateField
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IClassAware
+class PHP_PMD_Rule_UnusedPrivateField extends PHP_PMD_AbstractRule
 {
     /**
      * Collected private fields/variable declarators in the currently processed
@@ -200,5 +197,15 @@ class PHP_PMD_Rule_UnusedPrivateField
             strcasecmp($prefix->getImage(), '$this') === 0 ||
             strcasecmp($prefix->getImage(), $class->getImage()) === 0
         );
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Class');
     }
 }

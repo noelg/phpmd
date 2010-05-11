@@ -47,7 +47,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IClassAware.php';
 
 /**
  * This rule class will detect all classes with too much methods.
@@ -61,9 +60,7 @@ require_once 'PHP/PMD/Rule/IClassAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_Design_TooManyMethods
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IClassAware
+class PHP_PMD_Rule_Design_TooManyMethods extends PHP_PMD_AbstractRule
 {
     /**
      * Regular expression that filter all methods that are ignored by this rule.
@@ -107,5 +104,15 @@ class PHP_PMD_Rule_Design_TooManyMethods
             }
         }
         return $count;
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Class');
     }
 }

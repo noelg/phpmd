@@ -62,10 +62,7 @@ require_once 'PHP/PMD/Rule/IFunctionAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_Naming_ShortMethodName
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IMethodAware,
-               PHP_PMD_Rule_IFunctionAware
+class PHP_PMD_Rule_Naming_ShortMethodName extends PHP_PMD_AbstractRule
 {
     /**
      * Extracts all variable and variable declarator nodes from the given node
@@ -82,5 +79,15 @@ class PHP_PMD_Rule_Naming_ShortMethodName
             return;
         }
         $this->addViolation($node, array($node->getParentName(), $node->getName()));
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Method', 'PHP_PMD_Node_Function');
     }
 }

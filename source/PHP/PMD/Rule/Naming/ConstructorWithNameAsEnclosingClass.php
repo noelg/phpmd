@@ -47,7 +47,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IMethodAware.php';
 
 /**
  * This rule class will detect methods that define a php4 style constructor
@@ -62,9 +61,7 @@ require_once 'PHP/PMD/Rule/IMethodAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_Naming_ConstructorWithNameAsEnclosingClass
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IMethodAware
+class PHP_PMD_Rule_Naming_ConstructorWithNameAsEnclosingClass extends PHP_PMD_AbstractRule
 {
     /**
      * Extracts all variable and variable declarator nodes from the given node
@@ -81,5 +78,15 @@ class PHP_PMD_Rule_Naming_ConstructorWithNameAsEnclosingClass
             return;
         }
         $this->addViolation($node);
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Method');
     }
 }

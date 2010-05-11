@@ -63,10 +63,7 @@ require_once 'PHP/PMD/Rule/IMethodAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_UnusedLocalVariable
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IFunctionAware,
-               PHP_PMD_Rule_IMethodAware
+class PHP_PMD_Rule_UnusedLocalVariable extends PHP_PMD_AbstractRule
 {
     /**
      * PHP super globals that are available in all php scopes, so that they
@@ -236,5 +233,15 @@ class PHP_PMD_Rule_UnusedLocalVariable
     private function _isNotSuperGlobal(PHP_PMD_AbstractNode $variable)
     {
         return !isset(self::$_superGlobals[$variable->getImage()]);
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Method', 'PHP_PMD_Node_Function');
     }
 }

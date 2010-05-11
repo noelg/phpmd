@@ -47,8 +47,6 @@
  */
 
 require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IClassAware.php';
-require_once 'PHP/PMD/Rule/IInterfaceAware.php';
 
 /**
  * This rule detects class/interface constants that do not follow the upper
@@ -63,10 +61,7 @@ require_once 'PHP/PMD/Rule/IInterfaceAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_Naming_ConstantNamingConventions
-       extends PHP_PMD_AbstractRule
-    implements PHP_PMD_Rule_IClassAware,
-               PHP_PMD_Rule_IInterfaceAware
+class PHP_PMD_Rule_Naming_ConstantNamingConventions extends PHP_PMD_AbstractRule
 {
     /**
      * Extracts all constant declarations from the given node and tests that
@@ -83,5 +78,15 @@ class PHP_PMD_Rule_Naming_ConstantNamingConventions
                 $this->addViolation($declarator, array($declarator->getImage()));
             }
         }
+    }
+
+    /**
+     * Returns the applicable node types
+     *
+     * @return array Set of class name
+     */
+    public function appliesTo()
+    {
+      return array('PHP_PMD_Node_Class', 'PHP_PMD_Node_Interface');
     }
 }
