@@ -46,9 +46,7 @@
  * @link       http://phpmd.org
  */
 
-require_once 'PHP/PMD/AbstractRule.php';
-require_once 'PHP/PMD/Rule/IFunctionAware.php';
-require_once 'PHP/PMD/Rule/IMethodAware.php';
+require_once 'PHP/PMD/Rule/AbstractLocalVariable.php';
 
 /**
  * This rule collects all formal parameters of a given function or method that
@@ -63,7 +61,8 @@ require_once 'PHP/PMD/Rule/IMethodAware.php';
  * @version    Release: @package_version@
  * @link       http://phpmd.org
  */
-class PHP_PMD_Rule_UnusedFormalParameter extends PHP_PMD_AbstractRule
+
+class PHP_PMD_Rule_UnusedFormalParameter extends PHP_PMD_Rule_AbstractLocalVariable
 {
     /**
      * Collected ast nodes.
@@ -145,7 +144,9 @@ class PHP_PMD_Rule_UnusedFormalParameter extends PHP_PMD_AbstractRule
     {
         $variables = $node->findChildrenOfType('Variable');
         foreach ($variables as $variable) {
-            unset($this->_nodes[$variable->getImage()]);
+            if ($this->isLocal($variable)) {
+                unset($this->_nodes[$variable->getImage()]);
+            }
         }
     }
 
